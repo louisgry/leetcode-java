@@ -2,11 +2,14 @@
 
 LeetCode Java Solution
 
+
+
 ## 题目
 
 ### [回溯](#backtracking)
 
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
+- [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
 
 
 
@@ -67,3 +70,39 @@ class Solution {
     }
 }
 ```
+
+
+
+### 78题解
+
+```java
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> subsets(int[] nums) {
+        backtrack(nums, 0, new ArrayList<>());
+        return res;
+    }
+
+    /**
+     * 回溯辅助函数：
+     * @param nums 数组
+     * @param index 当前下标
+     * @param path 树路径的值
+     */
+    private void backtrack(int[] nums, int index, List<Integer> path) {
+        res.add(new ArrayList<>(path)); // 注意：由于Java的引用传递，这里要new
+        // 递归终止条件：index与数组长度相等
+        if(index == nums.length) {
+            return;
+        }
+        // 遍历数组元素
+        for(int i=index; i<nums.length; i++) {
+            path.add(nums[i]);
+            backtrack(nums, i+1, path);
+            path.remove(path.size()-1); // 删最后一个元素
+        }
+    }
+}
+```
+
