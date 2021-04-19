@@ -11,6 +11,11 @@ LeetCode Java Solution
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
 - [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
 
+### [位运算](#bitoperation)
+
+- [461. 汉明距离](https://leetcode-cn.com/problems/hamming-distance/)：[【461题解】](#461题解)
+- [338. 比特位计数](https://leetcode-cn.com/problems/counting-bits/)：[【338题解】](#338题解)
+
 
 
 ## 题解
@@ -18,6 +23,9 @@ LeetCode Java Solution
 ### backtracking
 
 #### 17题解
+
+- 解法：回溯
+- 复杂度：O(2 x len(s))、O(len(s))
 
 ```java
 class Solution {
@@ -75,6 +83,10 @@ class Solution {
 
 ### 78题解
 
+- 解法：回溯
+- 复杂度：O(n x 2^n)、O(n)
+- 参考：[回溯 + 位运算技巧—参考代码 1](https://leetcode-cn.com/problems/subsets/solution/hui-su-python-dai-ma-by-liweiwei1419/)
+
 ```java
 class Solution {
     List<List<Integer>> res = new ArrayList<>();
@@ -102,6 +114,106 @@ class Solution {
             backtrack(nums, i+1, path);
             path.remove(path.size()-1); // 删最后一个元素
         }
+    }
+}
+```
+
+
+
+## bitoperation
+
+### 461题解
+
+* 推荐解法：异或运算
+* 复杂度：O(32)、O(32)
+
+```java
+class Solution {
+    public int hammingDistance(int x, int y) {
+        // 位运算：异或
+        int xor = x ^ y;
+        String bin_xor = Integer.toBinaryString(xor);
+        // 找1的个数
+        int res = 0;
+        for(int i=0; i<bin_xor.length(); i++) {
+            if(bin_xor.charAt(i) =='1') {
+                res++;
+            }
+        }
+        return res;
+    }
+}
+```
+
+- 简单解法：朴素法
+- 复杂度：O(32)、O(32x2)
+
+ ```java
+class Solution {
+    public int hammingDistance(int x, int y) {
+        // 得到二进制表示
+        String bin_x = Integer.toBinaryString(x);
+        String bin_y = Integer.toBinaryString(y);
+
+        // 左侧补零
+        int max_len = Math.max(bin_x.length(), bin_y.length());
+        bin_x = String.format("%"+max_len+"s",bin_x).replace(' ', '0');;
+        bin_y = String.format("%"+max_len+"s", bin_y).replace(' ', '0');;
+
+        // 找不同的个数
+        int res = 0;
+        for(int i=0; i<max_len; i++) {
+            if(bin_x.charAt(i) != bin_y.charAt(i)) {
+                res++;
+            }
+        }
+
+        return res;
+    }
+}
+ ```
+
+
+
+### 338题解
+
+- 推荐解法：动态规划+位运算
+- 复杂度：O(num)、O(1)
+- 参考：[比特位计数，多种解决方式—3，解法三](https://leetcode-cn.com/problems/counting-bits/solution/bi-te-wei-ji-shu-duo-chong-jie-jue-fang-p77tu/)
+
+```java
+class Solution {
+    public int[] countBits(int num) {
+        int[] dp = new int[num+1];
+        for(int i=1; i<=num; i++) {
+            // i&(i-1)：消耗掉最右边的1，如12：1100==>1000
+            dp[i] = dp[i & (i-1)] + 1;
+        }
+        return dp;
+    }
+}
+```
+
+- 简单解法：朴素法
+- 复杂度：O(num x 32)、O(32)
+
+```java
+class Solution {
+    public int[] countBits(int num) {
+        int[] res = new int[num+1];
+        // 遍历num
+        for(int i=0; i<=num; i++) {
+            // 转二进制找1的个数
+            String bin_i = Integer.toBinaryString(i);
+            int count = 0;
+            for(int j=0; j<bin_i.length(); j++) {
+                if(bin_i.charAt(j) == '1') {
+                    count++;
+                }
+            }
+            res[i] = count;
+        }
+        return res;
     }
 }
 ```
