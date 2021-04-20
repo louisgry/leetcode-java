@@ -46,6 +46,7 @@ public class LC_17_LetterCombinations {
         if(index == digits.length()) {
             // 保存s
             res.add(s);
+            System.out.println(s+", return");
             return;
         }
 
@@ -56,8 +57,10 @@ public class LC_17_LetterCombinations {
 
         // 遍历字母字符串
         for(int i=0; i<letters.length(); i++) {
+            System.out.println(c+", use "+letters.charAt(i));
             backtrack(digits, index+1, s+letters.charAt(i));
         }
+        System.out.println(c+" complete, return");
     }
 
     /** main */
@@ -67,12 +70,12 @@ public class LC_17_LetterCombinations {
         System.out.println((new LC_17_LetterCombinations()).letterCombinations(digits1));
 
 
-        String digits2 = "";
-        // ==> []
-        System.out.println((new LC_17_LetterCombinations()).letterCombinations(digits2));
-
-        String digits3 = "2";
-        // ==> ["a","b","c"]
-        System.out.println((new LC_17_LetterCombinations()).letterCombinations(digits3));
+//        String digits2 = "";
+//        // ==> []
+//        System.out.println((new LC_17_LetterCombinations()).letterCombinations(digits2));
+//
+//        String digits3 = "2";
+//        // ==> ["a","b","c"]
+//        System.out.println((new LC_17_LetterCombinations()).letterCombinations(digits3));
     }
 }

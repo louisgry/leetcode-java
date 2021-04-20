@@ -9,7 +9,12 @@ LeetCode Java Solution
 ### [回溯](#backtracking)
 
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
+- [46. 全排列](https://leetcode-cn.com/problems/permutations/)：[【46题解】](#46题解)
+- more
 - [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
+- [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
+- [131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
+- [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
 
 ### [位运算](#bitoperation)
 
@@ -81,6 +86,47 @@ class Solution {
 
 
 
+### 46题解
+
+- 解法：回溯
+- 复杂度：O(n^n)、O(n)
+
+```java
+class Solution {
+    private List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> permute(int[] nums) {
+        backtrak(nums, 0, new ArrayList<>());
+        return res;
+    }
+
+    /**
+     * 回溯辅助函数
+     * @param nums 数组
+     * @param index 当前下标
+     * @param path 路径的值
+     */
+    private void backtrak(int[] nums, int index, List<Integer> path) {
+        if(index == nums.length) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for(int i=0; i<nums.length; i++) {
+            // 判断nums[i]是否在path中
+            if(!path.contains(nums[i])) {
+                path.add(nums[i]);
+                backtrak(nums, index+1, path);
+                path.remove(path.size()-1);
+            }
+        }
+    }
+}
+```
+
+
+
+
+
 ### 78题解
 
 - 解法：回溯
@@ -100,7 +146,7 @@ class Solution {
      * 回溯辅助函数：
      * @param nums 数组
      * @param index 当前下标
-     * @param path 树路径的值
+     * @param path 路径的值
      */
     private void backtrack(int[] nums, int index, List<Integer> path) {
         res.add(new ArrayList<>(path)); // 注意：由于Java的引用传递，这里要new
