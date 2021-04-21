@@ -10,6 +10,7 @@ LeetCode Java Solution
 
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
 - [46. 全排列](https://leetcode-cn.com/problems/permutations/)：[【46题解】](#46题解)
+- [77. 组合](https://leetcode-cn.com/problems/combinations/)：[【77题解】](#77题解)
 - more
 - [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
 - [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
@@ -78,6 +79,7 @@ class Solution {
 
         // 遍历字母字符串
         for(int i=0; i<letters.length(); i++) {
+            // s <== s+letters.charAt(i)
             backtrack(digits, index+1, s+letters.charAt(i));
         }
     }
@@ -107,6 +109,7 @@ class Solution {
      * @param path 路径的值
      */
     private void backtrak(int[] nums, int index, List<Integer> path) {
+        // 递归终止条件：index与nums长度相等
         if(index == nums.length) {
             res.add(new ArrayList<>(path));
             return;
@@ -115,7 +118,9 @@ class Solution {
             // 判断nums[i]是否在path中
             if(!path.contains(nums[i])) {
                 path.add(nums[i]);
+            	// 递归操作
                 backtrak(nums, index+1, path);
+            	// 回溯操作
                 path.remove(path.size()-1);
             }
         }
@@ -124,6 +129,65 @@ class Solution {
 ```
 
 
+
+### 77题解
+
+- 解法：回溯
+- 复杂度：O(n^k)、O(k)
+
+```java
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+
+    public List<List<Integer>> combine(int n, int k) {
+        // 边界判断
+        if(n<=0 || k<=0 || k>n) {
+            return res;
+        }
+        // 从数字1开始回溯
+        backtrack(n, k, 1, new ArrayList<>());
+        return res;
+    }
+
+    private void backtrack(int n, int k, int index, List<Integer> path) {
+        // 递归终止条件：path的个数等于k
+        if(path.size() == k) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for(int i=index; i<=n; i++) {
+            path.add(i);
+            // 递归操作
+            backtrack(n, k, i+1, path);
+            // 回溯操作
+            path.remove(path.size()-1);
+        }
+    }
+}
+```
+
+- 优化：剪枝，不需要遍历到i=n
+
+```java
+	private void backtrack(int n, int k, int index, List<Integer> path) {
+        if(path.size() == k) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        // 剪枝：i最大为n-(k-path.size())+1
+        for(int i=index; i<=n-(k-path.size())+1; i++) {
+            path.add(i);
+            backtrack(n, k, i+1, path);
+            path.remove(path.size()-1);
+        }
+    }
+```
+
+
+
+
+
+more
 
 
 
