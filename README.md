@@ -9,13 +9,30 @@ LeetCode Java Solution
 ### [回溯](#backtracking)
 
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
+
 - [46. 全排列](https://leetcode-cn.com/problems/permutations/)：[【46题解】](#46题解)
+
 - [77. 组合](https://leetcode-cn.com/problems/combinations/)：[【77题解】](#77题解)
-- more
-- [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
+
+  more
+
 - [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
+
 - [131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
+
 - [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
+
+- [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
+
+- [40. 组合总和 II](https://leetcode-cn.com/problems/combination-sum-ii/)
+
+- [216. 组合总和 III](https://leetcode-cn.com/problems/combination-sum-iii/)
+
+- [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
+
+- [90. 子集 II](https://leetcode-cn.com/problems/subsets-ii/)
+
+- [401. 二进制手表](https://leetcode-cn.com/problems/binary-watch/)
 
 ### [位运算](#bitoperation)
 
