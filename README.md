@@ -9,31 +9,18 @@ LeetCode Java Solution
 ### [回溯](#backtracking)
 
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
-
 - [46. 全排列](https://leetcode-cn.com/problems/permutations/)：[【46题解】](#46题解)
-
 - [77. 组合](https://leetcode-cn.com/problems/combinations/)：[【77题解】](#77题解)
-
 - [79. 单词搜索](https://leetcode-cn.com/problems/word-search/)：[【79题解】](#79题解)
-
-  more
-
+- [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)：[【200题解】](#200题解)
 - [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
-
 - [131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
-
 - [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
-
 - [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
-
 - [40. 组合总和 II](https://leetcode-cn.com/problems/combination-sum-ii/)
-
 - [216. 组合总和 III](https://leetcode-cn.com/problems/combination-sum-iii/)
-
 - [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
-
 - [90. 子集 II](https://leetcode-cn.com/problems/subsets-ii/)
-
 - [401. 二进制手表](https://leetcode-cn.com/problems/binary-watch/)
 
 ### [位运算](#bitoperation)
@@ -251,6 +238,55 @@ class Solution {
             visited[startx][starty] = false;
         }
         return false;
+    }
+
+    private boolean inArea(int x, int y, int n, int m) {
+        return x>=0 && x<n && y>=0 && y<m;
+    }
+}
+```
+
+
+
+### 200题解
+
+- 解法：回溯+DFS
+- 复杂度：O(nxm)、O(nxm)
+
+```java
+class Solution {
+    private int[][] d = {{1,0},{-1,0},{0,1},{0,-1}};
+    private boolean[][] visited;
+
+    public int numIslands(char[][] grid) {
+        int n = grid.length;
+        assert n>0;
+        int m = grid[0].length;
+        visited = new boolean[n][m];
+
+        int res = 0;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
+                // 判断是否为岛屿，并且未被访问过
+                if(grid[i][j]=='1' && !visited[i][j]) {
+                    res++;
+                    dfs(grid, n, m, i, j);
+                }
+            }
+        }
+        return res;
+    }
+
+    private void dfs(char[][] grid, int n, int m, int x, int y) {
+        visited[x][y] = true;
+        for(int i=0; i<4; i++) {
+            int newx = x + d[i][0];
+            int newy = y + d[i][1];
+            // 判断是否在边界内，未被访问过，且为岛屿
+            if(inArea(newx, newy, n, m) && !visited[newx][newy] && grid[newx][newy]=='1') {
+                dfs(grid, n, m, newx, newy);
+            }
+        }
     }
 
     private boolean inArea(int x, int y, int n, int m) {
