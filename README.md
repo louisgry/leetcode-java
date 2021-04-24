@@ -9,19 +9,42 @@ LeetCode Java Solution
 ### [回溯](#backtracking)
 
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
+
 - [46. 全排列](https://leetcode-cn.com/problems/permutations/)：[【46题解】](#46题解)
+
 - [77. 组合](https://leetcode-cn.com/problems/combinations/)：[【77题解】](#77题解)
+
 - [79. 单词搜索](https://leetcode-cn.com/problems/word-search/)：[【79题解】](#79题解)
+
 - [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)：[【200题解】](#200题解)
+
+- [51. N 皇后](https://leetcode-cn.com/problems/n-queens/)：[【51题解】](#51题解)
+
+  more
+
 - [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
+
 - [131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
+
 - [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
+
 - [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
+
 - [40. 组合总和 II](https://leetcode-cn.com/problems/combination-sum-ii/)
+
 - [216. 组合总和 III](https://leetcode-cn.com/problems/combination-sum-iii/)
+
 - [78. 子集](https://leetcode-cn.com/problems/subsets/)：[【78题解】](#78题解)
+
 - [90. 子集 II](https://leetcode-cn.com/problems/subsets-ii/)
+
 - [401. 二进制手表](https://leetcode-cn.com/problems/binary-watch/)
+
+- [130. 被围绕的区域](https://leetcode-cn.com/problems/surrounded-regions/)
+
+- [417. 太平洋大西洋水流问题](https://leetcode-cn.com/problems/pacific-atlantic-water-flow/)
+
+- [37. 解数独](https://leetcode-cn.com/problems/sudoku-solver/)
 
 ### [位运算](#bitoperation)
 
@@ -291,6 +314,68 @@ class Solution {
 
     private boolean inArea(int x, int y, int n, int m) {
         return x>=0 && x<n && y>=0 && y<m;
+    }
+}
+```
+
+
+
+### 51题解
+
+- 解法：回溯
+- 复杂度：O(n^n)、O(n)
+
+```java
+class Solution {
+    List<List<String>> res = new ArrayList<>();
+    boolean[] col; // 竖向判断
+    boolean[] diag1; // 对角线1判断
+    boolean[] diag2; // 对角线2判断
+
+    public List<List<String>> solveNQueens(int n) {
+        col = new boolean[n];
+        diag1 = new boolean[2*n-1];
+        diag2 = new boolean[2*n-1];
+
+        backtrack(n, 0, new ArrayList<>());
+        return res;
+    }
+
+    private void backtrack(int n, int index, List<Integer> row) {
+        if(index == n) {
+            res.add(gen_res(n, row));
+        }
+
+        // 遍历所有列
+        for(int j=0; j<n; j++) {
+            // 竖向、对角线1、对角线2合法
+            if(!col[j] && !diag1[index+j] && !diag2[index-j+n-1]) {
+                row.add(j);
+                col[j] = true;
+                diag1[index+j] = true;
+                diag2[index-j+n-1] = true;
+
+                // 递归
+                backtrack(n, index+1, row);
+
+                // 回溯
+                row.remove(row.size()-1);
+                col[j] = false;
+                diag1[index+j] = false;
+                diag2[index-j+n-1] = false;
+            }
+        }
+    }
+
+    private List<String> gen_res(int n, List<Integer> row) {
+        List<String> resString = new ArrayList<>();
+        for(int i=0; i<n; i++) {
+            char[] charArr = new char[n];
+            Arrays.fill(charArr, '.');
+            charArr[row.get(i)] = 'Q';
+            resString.add(new String(charArr));
+        }
+        return resString;
     }
 }
 ```
