@@ -6,6 +6,16 @@ LeetCode Java Solution
 
 ## 题目
 
+### [递归](#recursion)
+
+- [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)：[【104题解】](#104题解)
+
+  more
+
+- [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+
+
+
 ### [回溯](#backtracking)
 
 - [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)：[【17题解】](#17题解)
@@ -46,6 +56,8 @@ LeetCode Java Solution
 
 - [37. 解数独](https://leetcode-cn.com/problems/sudoku-solver/)
 
+
+
 ### [位运算](#bitoperation)
 
 - [461. 汉明距离](https://leetcode-cn.com/problems/hamming-distance/)：[【461题解】](#461题解)
@@ -54,6 +66,31 @@ LeetCode Java Solution
 
 
 ## 题解
+
+### recursion
+
+### 104题解
+
+- 解法：递归
+- 复杂度：O(n)、O(h)
+
+```java
+class Solution {
+    public int maxDepth(TreeNode root) {
+        // 递归终止条件
+        if(root == null) {
+            return 0;
+        }
+
+        // 递归过程
+        return Math.max(maxDepth(root.left), maxDepth(root.right))+1;
+    }
+}
+```
+
+
+
+
 
 ### backtracking
 
