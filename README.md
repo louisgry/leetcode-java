@@ -9,10 +9,13 @@ LeetCode Java Solution
 ### [递归](#recursion)
 
 - [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)：[【104题解】](#104题解)
-
-  more
-
+- [226. 翻转二叉树](https://leetcode-cn.com/problems/invert-binary-tree/)：[【226题解】](#226题解)
+- more
 - [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+- [100. 相同的树](https://leetcode-cn.com/problems/same-tree/)
+- [101. 对称二叉树](https://leetcode-cn.com/problems/symmetric-tree/)
+- [222. 完全二叉树的节点个数](https://leetcode-cn.com/problems/count-complete-tree-nodes/)
+- [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
 
 
 
@@ -84,6 +87,33 @@ class Solution {
 
         // 递归过程
         return Math.max(maxDepth(root.left), maxDepth(root.right))+1;
+    }
+}
+```
+
+
+
+### 226题解
+
+- 解法：递归
+- 复杂度：O(n)、O(h)
+
+```java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        // 递归终止条件
+        if(root == null) {
+            return null;
+        }
+
+        // 递归过程
+        // 错误写法：root.left=invertTree(root.right);
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+        // swap
+        root.left = right;
+        root.right = left;
+        return root;
     }
 }
 ```
