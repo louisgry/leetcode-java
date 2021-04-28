@@ -11,6 +11,7 @@ LeetCode Java Solution
 - [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)：[【104题解】](#104题解)
 - [226. 翻转二叉树](https://leetcode-cn.com/problems/invert-binary-tree/)：[【226题解】](#226题解)
 - [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)：[【112题解】](#112题解)
+- [257. 二叉树的所有路径](https://leetcode-cn.com/problems/binary-tree-paths/)：[【257题解】](#257题解)
 - more
 - [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
 - [100. 相同的树](https://leetcode-cn.com/problems/same-tree/)
@@ -18,6 +19,8 @@ LeetCode Java Solution
 - [222. 完全二叉树的节点个数](https://leetcode-cn.com/problems/count-complete-tree-nodes/)
 - [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
 - [404. 左叶子之和](https://leetcode-cn.com/problems/sum-of-left-leaves/)
+- [113. 路径总和 II](https://leetcode-cn.com/problems/path-sum-ii/)
+- [129. 求根节点到叶节点数字之和](https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/)
 
 
 
@@ -148,6 +151,40 @@ class Solution {
         }
         // 没找到
         return false;
+    }
+}
+```
+
+
+
+### 257题解
+
+- 解法：递归
+- 复杂度：O(n)、O(h)
+
+```java
+class Solution {
+    List<String> res = new ArrayList<>();
+
+    public List<String> binaryTreePaths(TreeNode root) {
+        helper(root, "");
+        return res;
+    }
+
+    private void helper(TreeNode root, String path) {
+        // 递归终止条件
+        if(root == null) {
+            return;
+        }
+        if(root.left==null && root.right==null) {
+            path += root.val;
+            res.add(path);
+        }
+
+        // 递归过程
+        path += root.val + "->";
+        helper(root.left, path);
+        helper(root.right, path);
     }
 }
 ```
